@@ -58,6 +58,60 @@ We define the following terms:
     \item \textbf{Training Data: } $S = ((x_1, y_1),...,(x_m,y_m))$ is a finite set in $\chi \times Y$. It is the input that learner has access to. For example, in the papaya example, the previously tasted papayas should make the training set for the learner.
     \item \textbf{The learner's output: } What we want from our learner is a prediction rule, which takes as input a papaya (or features of papaya) and, without tasting it, tries to predict whether the papaya is tasty or non-tasty. This prediction rule is called \textit{hypothesis}. We use $A(S)$ to denote a prediction rule which learning algorithm $A$ returns on training set $S$.
     \item \textbf{The data generation model: } (The learner doesn't know anything about this model) First we assume that the set $\chi$ has some distribution related to it. We denote this prob. dist. over $\chi$ by $\mathcal{D}$. We also assume, for now, that there is some correct labelling function, $f: \chi \to Y$, and $y_i = f(x_i)$ for all $i$. note that the aim of the learner is just to approximate this function $f$ given $S$.
+    \item \textbf{Measures of success: } 
+        \begin{itemize}
+            \item \textbf{Generalisation error: } It is defined as the probability of our hypothesis $h$ giving wrong output on a sample chosen randomly with underlying distribution $\mathcal{D}$.
+                \begin{center}
+                                    $L_{\mathcal{D},f}(h) = \underset{x\sim\mathcal{D}}{\mathbb{P}}]h(x) \neq f(x)] \equiv \mathcal{D}(\{x:h(x) \neq f(x)\})$
+                \end{center}
+            What does this mean? Look at the middle term in the above equation. It is the probability of finding an $x$ distributed as $\mathcal{D}$ such that $h(x) \neq f(x)$.
+                
+            Since \mathcal{D} and $f$ are not available to the learner, the generalisation error can't be calculated. Therefore, we try to find the \textit{Empirical error}.
+            \item \textbf{Empirical error: } It is the mean error of our hypothesis on the sample set $S$.
+                \begin{center}
+                    $L_S(h) \equiv \frac{|\{i\in[m]:h(x_i) \neq y_i\}|}{m}$
+                \end{center}
+            where $|S| = m$.
+            
+            Therefore, it can also be defined as the mean error on our sample.
+        \end{itemize}
+        \newpage
+        
+    \subsection{Empirical Risk Minimisation}
+    Since our learner doesn't have any information about $\mathcal{D}$ and the labelling function $f$, it is not possible to minimize the generalisation error unless we are given all the infinite samples (Note that knowing all the samples and the labels of each of them will be equivalent to know everything about the data moreover, if we have all the data with labels, there is no need for learning anything at all). Therefore, it makes sense to minimise the empirical error, which depends only on the training set.
+        \subsubsection{Why does it make sense to minimise empirical risk?}
+        Since the empirical risk depends only on the sample set $S$, the intuitive question to ask here is "Why does the empirical risk represent anything about the real data $\chi$?". Why should we minimise empirical risk even if we don't have true error?
+        
+        \textbf{Statement: } $E[L_S(h)] = L_{\mathcal{D},f}(h)$ \\
+        \textbf{Explanation: } \\
+            Let,
+            \begin{center}
+              
+            \[ one(h,f,x) =
+                  \begin{cases}
+                    1   & \quad \text{if }\text{ $h(x) \neq f(x)$ }\\
+                    0  & \quad \text{ otherwise}
+                  \end{cases}
+                \]
+            \end{center}
+            
+            So, we know that,
+            \begin{center}
+                $L_S(h) = \frac{1}{m}\displaystyle\sum_{i=1}^{m}one(h,f,x_i)$
+            \end{center}
+            Therefore,
+            
+            \begin{center}
+                $E(L_S(h) = \underset{S|x\sim\mathcal{D}^m}{E}[\frac{1}{m}\displaystyle\sum_{i=1}^{m}one(h,f,x_i)]$
+                
+                \hspace{12px} $=\frac{1}{m}\displaystyle\sum_{i=1}^{m}E[one(h,f,x_i)]$
+                
+                \hspace{35px}$=(\frac{1}{m} \times m) \underset{x \sim \mathcal{D}}{P}[h(x) \neq f(x)]$
+                
+                \hspace{-45px} $=L_{\mathcal{D},f}(h)$
+            \end{center}
+        
+        \subsubsection{Overfitting}
     
 \end{itemize}
 
