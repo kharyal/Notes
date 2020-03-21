@@ -1,0 +1,64 @@
+% This is a borrowed LaTeX template file for lecture notes for CS267,
+% Applications of Parallel Computing, UCBerkeley EECS Department.
+
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.
+
+\documentclass[a4paper]{article}
+
+%
+% ADD PACKAGES here:
+%
+
+\usepackage{amsmath,amsfonts,graphicx,multicol}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{bm,nicefrac}
+\usepackage{hyperref}
+
+\setlength{\parskip}{\baselineskip} % Set space between paras
+\setlength{\parindent}{0pt} % No para indentation
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\begin{document}
+
+\pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \noindent
+   \begin{center}
+   \framebox
+   {
+      \vbox{\vspace{2mm}
+        \hbox to 6.28in { {\Large \hfill Learning Theory \hfill} } %% Fill here
+        \vspace{2mm}
+        \hbox to 6.28in { {\it Prepared by: Chaitanya Kharyal\hfill} } %% Fill here
+        \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{}{} %% Fill here
+
+\section{A Gentle Start}
+
+\subsection{Posing the problem:}
+Suppose with no prior experience about papayas, we arrive at some small Pacific Island, where papayas are a significant ingredient in local diet. Now, we have to learn how to predict whether a papaya is tasty or not based on some of its features. We choose these features to be colour and softness. Now, given a set of papayas, how will we determine whether a papaya is tasty or not.
+
+\subsection{A Formal Model - The Statistical Learning Framework}
+We define the following terms:
+\begin{itemize}
+    \item \textbf{Domain Set:} We can call it the universal set, $\chi$,of the objects that we wish to label. For example in papaya labelling example, it is the set of all papayas.
+    \item \textbf{Label set: } It is the set, $Y$, of all possible labels. For example in our papaya labelling case, \{\textit{tasty, non-tasty}\} or if we map it to integers, (\textit{1} for \trextit{tasty} and \textit{0} for \trextit{non-tasty}) \{\textit{0, 1}\}.
+    \item \textbf{Training Data: } $S = ((x_1, y_1),...,(x_m,y_m))$ is a finite set in $\chi \times Y$. It is the input that learner has access to. For example, in the papaya example, the previously tasted papayas should make the training set for the learner.
+    \item \textbf{The learner's output: } What we want from our learner is a prediction rule, which takes as input a papaya (or features of papaya) and, without tasting it, tries to predict whether the papaya is tasty or non-tasty. This prediction rule is called \textit{hypothesis}. We use $A(S)$ to denote a prediction rule which learning algorithm $A$ returns on training set $S$.
+    \item \textbf{The data generation model: } (The learner doesn't know anything about this model) First we assume that the set $\chi$ has some distribution related to it. We denote this prob. dist. over $\chi$ by $\mathcal{D}$. We also assume, for now, that there is some correct labelling function, $f: \chi \to Y$, and $y_i = f(x_i)$ for all $i$. note that the aim of the learner is just to approximate this function $f$ given $S$.
+    
+\end{itemize}
+
+\end{document}
