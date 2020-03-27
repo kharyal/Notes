@@ -74,6 +74,8 @@ We define the following terms:
             where $|S| = m$.
             
             Therefore, it can also be defined as the mean error on our sample.
+            
+        \end{itemize}
         \end{itemize}
         \newpage
         
@@ -111,8 +113,35 @@ We define the following terms:
                 \hspace{-45px} $=L_{\mathcal{D},f}(h)$
             \end{center}
         
-        \subsubsection{Overfitting}
+    \subsubsection{Overfitting (ERM might fail!)}
+        Sometimes ERM might output something that fits the sample data $S$ a bit 'too well'. For example, in out papaya example, ERM can output a function $h_S(x)$, such that,
+        \begin{center}
+            \[ h_S(x) =
+                  \begin{cases}
+                    y_i   & \quad \text{if }\text{ $x = x_i : x_i \in S$ }\\
+                    0  & \quad \text{ otherwise}
+                  \end{cases}
+                \]
+        \end{center}
+        
+        In such case, even though the empirical loss $L_S(h)$ is $0$ (because it perfectly predicts the tastiness for every papaya in $S$), we know that it is not the true function unless $S$ contains all the tasty papayas. This means we have found a function which performs perfectly on the training set but fails miserably in the real world. Such problem is called \textit{overfitting}. To tackle this problem, we introduce something called \textit{ERM with inductive bias}.
     
-\end{itemize}
-
+    \subsection{ERM with Inductive Bias}
+        Since, normal ERM has the problem of overfitting, we try to fix it by introducing something called as \textit{inductive bias}. To tackle the problem of overfitting, we make our learner to search in a restricted search space. We call the set of this space as the \textit{hypothesis space}, $\mathcal{H}$. Ideally the learner should choose the hypothesis class before looking at the training set.
+        
+        The ERM with inductive bias, for a given class $\mathcal{H}$ and a given training set $S$, returns a function $h_S \in \mathcal{H}$ such that,
+        \begin{center}
+            $ERM_h(S) \in \underset{h \in \mathcal{H}}{argmin}$  \vspace{5px} $L_S(h)$
+        \end{center}
+        
+        \subsubsection{Finite hypothesis class}
+            in ERM with inductive bias, we have restricted our search space to $\mathcal{H}$. Now, we impose a simple restriction on $\mathcal{H}$, ie. we upper-bound the size of $\mathcal{H}$ or assume it to be finite.
+            
+            Now, to analyse the performance of ERM{$_\mathcal{H}$}, we need some definitions and assumptions.
+            
+            \begin{definition}
+                \textbf{The realizability assumption: } There exists $h^* \in \mathcal{H}$ such that $L_{(\mathcal(D),f)} = 0$.
+            \end{definition}
+            
+            Note that, Realizability assumption implies that for any random $S$ sampled according to $\mathcal{D}$ and labelled according to $f$, we have $L_S(h^*) = 0$.
 \end{document}
