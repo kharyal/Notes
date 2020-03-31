@@ -1,0 +1,92 @@
+% This is a borrowed LaTeX template file for lecture notes for CS267,
+% Applications of Parallel Computing, UCBerkeley EECS Department.
+
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.
+
+\documentclass[a4paper]{article}
+
+%
+% ADD PACKAGES here:
+%
+
+\usepackage{amsmath,amsfonts,graphicx,multicol}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{bm,nicefrac}
+\usepackage{hyperref}
+
+\setlength{\parskip}{\baselineskip} % Set space between paras
+\setlength{\parindent}{0pt} % No para indentation
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\begin{document}
+
+\pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \noindent
+   \begin{center}
+   \framebox
+   {
+      \vbox{\vspace{2mm}
+        \hbox to 6.28in { {\Large \hfill Linear algebra \hfill} } %% Fill here
+        \vspace{2mm}
+        \hbox to 6.28in { {\it Chaitanya Kharyal\hfill} } %% Fill here
+        \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{}{} %% Fill here
+
+\section{Topics to be covered}
+\begin{itemize}
+    \item System of linear equations
+    \item Row Echelon Form
+    \item Reduced Row Echelon Form
+\end{itemize}
+
+\section{System of linear equations}
+\subsection{Representing linear equations in terms of matrices and vectors}
+\textit{(covered in T8)}
+
+While solving the system of linear equations using LA, the first question that arises is \textit{"How do we represent Linear Equations using matrices?".} This relatively not so simple question has a simple solution. Consider a system of linear equations in two variables,
+\begin{center}
+    $ax + by = c$
+    
+    $dx + ey = f$
+\end{center}
+
+In order to represent this simple system of equations, we make a matrix using all the coefficients...
+\begin{center}
+    $A = \begin{bmatrix}
+        a & b \\
+        d & e 
+    \end{bmatrix}$
+\end{center}
+
+We also make two vector using the variables and the constants respectively...
+\begin{center}
+    $\textbf{x} = \begin{bmatrix}
+        x \\
+        y 
+    \end{bmatrix}$ \hspace{5px} 
+    and \hspace{5px}
+$\textbf{b} = \begin{bmatrix}
+        c \\
+        f 
+    \end{bmatrix}$ 
+\end{center}
+
+Now, our linear equation will become:
+\begin{center}
+    $A\textbf{x} = \textbf{b}$
+\end{center}
+
+\end{document}
