@@ -89,4 +89,84 @@ Now, our linear equation will become:
     $A\textbf{x} = \textbf{b}$
 \end{center}
 
+\subsection{Column picture of matrix multiplication}
+\textit{(covered in T8)}
+
+The fundamental problem in LA is to solve $A\textbf{x} = \textbf{b}$ for $\textbf{x}$. We will now see when is the solution for this equation possible.
+
+We write our linear equation in matrix form,
+\begin{center}
+    $ 
+    \begin{bmatrix}
+    a_{1,1} & a_{1,2} & \dots & a_{1,n} \\ 
+    a_{2,1} & a_{2,2} & \dots & a_{2,n} \\
+    \vdots  & \vdots  &       & \vdots  \\
+    a_{m,1} & a_{m,2} & \dots & a_{m,n} 
+    \end{bmatrix}
+    \begin{bmatrix}
+    x_1   \\ 
+    x_2   \\
+    \vdots\\
+    x_n 
+    \end{bmatrix} = 
+    \begin{bmatrix}
+    b_1   \\ 
+    b_2   \\
+    \vdots\\
+    b_n 
+    \end{bmatrix}
+    
+    \implies \begin{bmatrix}
+    |   & |       &       & |     \\ 
+    c_1 & c_2     & \dots & c_n   \\
+    |   & |       &       & |        
+    \end{bmatrix}
+    \begin{bmatrix}
+    x_1   \\ 
+    x_2   \\
+    \vdots\\
+    x_n 
+    \end{bmatrix} = 
+    \begin{bmatrix}
+    b_1   \\ 
+    b_2   \\
+    \vdots\\
+    b_n 
+    \end{bmatrix}
+    $  \dots\dots \textbf{(1)}
+\end{center}
+
+Where,
+\begin{center}
+    $
+    c_i = 
+    \begin{bmatrix}
+    a_{1,i}   \\ 
+    a_{2,i}   \\
+    \vdots    \\
+    a_{m,i} 
+    \end{bmatrix}
+    $
+\end{center}
+
+We can rewrite the equation \textbf{(1)} as,
+
+\begin{center}
+    $
+    \displaystyle\sum_{i=1}^{n}x_i\textbf{c}_i = \textbf{b} \dots\dots \textbf{(2)}
+    $
+\end{center}
+Verify that (2) is correct.
+
+Here, $\displaystyle\sum_{i=1}^{n}x_i\textbf{c}_i$ is the span of column vectors of $\textbf{A}$, since $\textbf{x}$ is unknown. And for L.H.S and R.H.S of equation (2) to be equal for some $\textbf{x}$, $\textbf{b}$ should belong to the column space of $\textbf{A}$.
+
+If $\textbf{b}$ doesn't belong to the column space of $\textbf{A}$, there will be no solution for the equation. In that case if we want to approximate the solution for this equation, we have to use the trick that was taught in the last tutorial. And the solution, then, comes out to be,
+\begin{center}
+    $
+    \textbf{x} = (\textbf{A}^T\textbf{A})^{-1}\textbf{A}^T\textbf{b}
+    $
+\end{center}
+
+
+
 \end{document}
