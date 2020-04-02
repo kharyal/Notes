@@ -26,6 +26,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
+\newtheorem{problem}{Problem}
 
 \begin{document}
 
@@ -45,11 +46,16 @@
    \end{center}
    \markboth{}{} %% Fill here
 
+\section{Notation:}
+We have tried to use uppercase letters ($\mathbf{A}$) for matrices, lowercase bold letters ($\mathbf{x}$) for vectors and lowercase letters ($x$) for scalars (constants and variables). We have tried to stick to this notation as much as possible but there might be some unintentional slips and we apologise for that.
+
 \section{Topics to be covered}
 \begin{itemize}
     \item System of linear equations
     \item Row Echelon Form
     \item Reduced Row Echelon Form
+    \item Determinant
+    \item Inverse and its properties
 \end{itemize}
 
 \section{System of linear equations}
@@ -179,7 +185,6 @@ Eg.
 
 let $\mathbf{a}$ be a solution to the equation to $\mathbf{Ax} = \mathbf{b}$, and $\mathbf{A}$ be a $3 \times 3$ non-full rank (correct word for this would be \textbf{Rank Deficient)} matrix with columns $\mathbf{c_1}, \mathbf{c_2}, \mathbf{c_3}$. Also, Let $\mathbf{c_1} + \mathbf{c_2} + \mathbf{c_3} = 0$.
 
-\newpage
 Therefore,
 
 \begin{center}
@@ -235,6 +240,7 @@ $
     \end{bmatrix}
 $
 
+\newpage
 \subsection{Reduced RE form}
 A matrix is said to be in Reduced Row Echelon Form if it is:
 \begin{itemize}
@@ -265,5 +271,90 @@ $
 
 If we have matrix in REF or RREF we can solve the system of linear equations in less no of steps and it is computationally less expensive.
 We start computing from the last row and proceed further. 
+
+\section{Determinant}
+\href{https://brilliant.org/wiki/expansion-of-determinants/}{Determinant Wiki}
+
+\href{https://www.youtube.com/watch?v=Ip3X9LOh2dk}{Determinant Video}
+
+We suggest you to read this Wiki page and watch the Video before proceeding.
+
+
+\newpage
+\section{Inverse (of a matrix) and its properties}
+\textit{(finding inverse using EF will be covered in the tutorial)}
+
+In this section, we will discuss some important properties of the matrix inverses and consolidate all the related concepts.
+
+\textbf{Statement1: } A matrix \textbf{A} won't have an Inverse if for some $\mathbf{x}\neq0$, $\mathbf{Ax} = \mathbf{0}$.
+
+\textbf{Explanation: } Suppose, $\mathbf{x}\neq\mathbf{0}$ and, 
+\begin{center}
+    $\mathbf{Ax} = \mathbf{0}$    
+\end{center}
+Now, Left multiplying $\mathbf{A^{-1}}$ to both sides
+
+\begin{center}
+    $\implies \mathbf{A^{-1}Ax} = \mathbf{0}$\\
+    $\implies \mathbf{Ix} = \mathbf{0}$\\
+    $\implies \mathbf{x} = \mathbf{0}$
+\end{center}
+This is a contradiction, therefore, \textbf{Statement1} is true. This can be interpreted in terms of the Null space of $\mathbf{A}$. Since $\mathbf{Ax} = \mathbf{0}$ is true only for $\mathbf{x} = \mathbf{0}$, $Null(\mathbf{A})$  will contain only $\mathbf{0}$ vector.
+
+This result can also be interpreted using column picture of Matrix Multiplication,
+
+We can rewrite equation \textbf{(2)} for $\mathbf{b} = \mathbf{0},$
+\begin{center}
+    $
+    \displaystyle\sum_{i=1}^{n}x_i\textbf{c}_i = \textbf{0} \dots\dots
+    $
+    \textbf{(3)}
+\end{center}
+
+This brings us back to the definition of \textbf{Linear Independence}, and since $\mathbf{A}$ has an inverse iff $\mathbf{x} = \mathbf{0}$, equation \textbf{(3)} will be $\mathbf{0}$ iff all the $x_i$s are $0$, or all $c_i$s are Linearly Independent. And, in contrast, if equation \textbf{(3)} holds true for some non-zero $x_i$s, columns of $\mathbf{A}$ are Linearly Dependent, $\mathbf{A^{-1}}$ doesn't exist and the $Det(\mathbf{A}) = 0$.
+
+You can, now, see that how all these concepts are parallel and yet so much inter-related. 
+
+\textbf{Statement2: }If the columns of $\mathbf{A}$ are Independent, then $\mathbf{A^{T}A}$ is Inevitible.
+
+\textbf{Explanation: }Suppose,
+\begin{center}
+    $\mathbf{A^TAx} = \mathbf{0}$
+\end{center}
+Dot product with $\mathbf{x^T}$ on both sides,
+\begin{center}
+    $
+    \implies \mathbf{x^TA^TAx} = 0 \dots\dots \textrm{(note that 0 is not in bold here)}
+
+    \implies \mathbf{(Ax)^TAx} = 0
+    $
+\end{center}
+
+This says that $\mathbf{Ax}$ is perpendicular to itself, which is possible only when $\mathbf{Ax} = \mathbf{0}$. Now, Since columns of $\mathbf{A}$ are Independent, following from the above discussion, $\mathbf{x} = \mathbf{0}$. Therefore, using statement \textbf{(1)}, it follows that $\mathbf{A^TA}$ is invertible.
+
+\newpage
+\section{Exploring the subject further}
+We \textbf{strongly recommend} you to look into the \textbf{formulas and basic properties} for determinant and inverse.
+
+Related links:
+\begin{enumerate}
+    \item https://www.youtube.com/watch?v=srxexLishgY
+    \item https://www.youtube.com/watch?v=23LLB9mNJvc
+    \item https://www.youtube.com/watch?v=uQhTuRlWMxw
+    \item https://brilliant.org/wiki/matrix-inverse/
+\end{enumerate}
+
+\section{Problems}
+\begin{problem}
+    
+    \textbf{[Graded Assignment, to be submitted before next tutorial]} Give the value of $\lambda$ for which the following system of linear equations have infinitely many solutions.
+    \begin{center}
+        $
+        2x + 2y + 7z = 7\\
+        3x + (\lambda+9)y + (\lambda+11)z = 10 \\
+        3x + (\lambda+4)y + 11z = 10
+        $
+    \end{center}
+\end{problem}
 
 \end{document}
