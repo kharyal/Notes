@@ -164,7 +164,7 @@ We define the following terms:
             
             Now, let $\mathcal{H}_B$ be the set of bad hypothesis, ie,
             \begin{center}
-                $\mathcal{H}_B = \{h \in \mathcal{H}: \L_{(\mathcal{D},f)}(h_S) > \epsilon\}$
+                $\mathcal{H}_B = \{h \in \mathcal{H}: L_{(\mathcal{D},f)}(h_S) > \epsilon\}$
             \end{center}
             And, let $M$ be the set of misleading samples ie.
             \begin{center}
@@ -177,8 +177,45 @@ We define the following terms:
             Now, since $\underset{\mathcal{H}}{L_S(h)} = 0$ because of realizability assumption, our algorithm can fail (output gives $\L_{(\mathcal{D},f)}(h_S) > \epsilon$) if we get a misleading sample. Formally $M$ can be written as,
             \begin{center}
                 $
-                    M = \underset{h\in\mathcal{H}_B}{\bigcup}\{S|x:L_S(h) = 0\}
+                    M = \underset{h\in\mathcal{H}_B}{\bigcup}\{S|_x:L_S(h) = 0\}
+                $
+                
+                $
+                    \implies \mathcal{D}^m(\{S|_x: L_{(\mathcal{D},f)}(h_S) >\epsilon\})\; \leq \;\mathcal{D}^m(M)\; =\; \mathcal{D}^m(\underset{h\in\mathcal{H}_B}{\bigcup}\{S|_x:L_S(h) = 0\})
+                $
+                
+                $
+                    \leq \displaystyle\sum_{h\in \mathcal{H}_B}\mathcal{D}^m(\{S|_x:L_S(h) = 0\})
+                $ \dots\dots (Union bound) \dots\dots \textbf{(1)}
+            \end{center}
+            
+            If we fix some sample set $S$, the event $L_S(h) = 0$ is same as saying that $\forall i, h(x_i) = f(x_i)$. Formally,
+            \begin{center}
+                $
+                    \mathcal{D}^m(\{S|_x:L_S(h) = 0\}) =  \mathcal{D}^m(\{S|_x:\forall i, h(x_i) = f(x_i)\}) 
+                    
+                    = \displaystyle\prod_{i = 1}^m \mathcal{D}(\{x_i: h(x_i) = f(x_i)\})
                 $
             \end{center}
-        
+            
+            Also, we know that $\; \mathcal{D}(\{x_i: h(x_i) = f(x_i)\}) = 1-L_{(\mathcal{D},f)}(h) \; \leq \; 1-\epsilon$
+            
+            \begin{center}
+                $
+                    \mathcal{D}^m(\{S|_x:L_S(h) = 0\}) \; \leq \; (1-\epsilon)^m \; \leq \; e^{-\epsilon m}
+                $
+            \end{center}
+            
+            Therefore, \textbf{(1)} becomes,
+            
+            \begin{center}
+                $
+                    \mathcal{D}^m(\{S|_x: L_{(\mathcal{D},f)}(h_S) >\epsilon\}) \: \leq \: |\mathcal{H}_B|e^{-\epsilon m} \; \leq \; |\mathcal{H}|e^{-\epsilon m}
+                    
+                    \implies m \; \geq \; \frac{log(|\mathcal{H}|/\delta}{\epsilon} 
+                $
+            \end{center}
+            
+            Therefore, to avoid failure (probabilistically), $m$ should satisfy the above equation.
+            
 \end{document}
