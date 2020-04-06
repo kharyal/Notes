@@ -144,4 +144,41 @@ We define the following terms:
             \end{definition}
             
             Note that, Realizability assumption implies that for any random $S$ sampled according to $\mathcal{D}$ and labelled according to $f$, we have $L_S(h^*) = 0$.
+            
+            \begin{definition}
+                \textbf{The i.i.d. assumption: } The examples in the training set are independently and identically distributed according to the distribution $\mathcal{D}$. 
+            \end{definition}
+            
+            Intuitively, the larger the sample set gets, the more likely is it to represent the distribution and the labelling function.
+            
+            Since, we pick $S$ randomly, there is an intrinsic randomness in the output of our algorithm $h_S$ and thus, $L_{(\mathcal{D},f)}(h_S)$. Therefore, it is unrealistic to expect that with full certainty, our algorithm will output the correct hypothesis. Thus, we use the bounds over the probability to measure our success. Sometimes, our sample set might be non-representative of the original distribution $\mathcal{D}$.
+            Usually, we denote the probability of getting such non-representative sample by $\delta$. Also, since we can't guarantee perfect prediction, we introduce another parameter for the quality of prediction, called the accuracy parameter, denoted by $\epsilon$.
+            
+            \subsection{Bounding the number of samples required}
+            The event $L_{(\mathcal{D},f)}(h_S) > \epsilon$ is interpreted as a failure of the learner. We want to upper bound the number of samples required such that failure occurs or we can say that we want to lower bound the number of samples such which are required to guarantee \textit{Probably Approximately Correct (PAC) learning}. Formally, let $S|_x = {x_1,\dots,x_m}$ be an instance of the training set, we would like to upper bound the probability of getting such set, ie,
+            \begin{center}
+                $
+                \mathcal{D}^{m}(\{S|_x : L_{(\mathcal{D},f)}(h_S) > \epsilon\})
+                $
+            \end{center}
+            
+            Now, let $\mathcal{H}_B$ be the set of bad hypothesis, ie,
+            \begin{center}
+                $\mathcal{H}_B = \{h \in \mathcal{H}: \L_{(\mathcal{D},f)}(h_S) > \epsilon\}$
+            \end{center}
+            And, let $M$ be the set of misleading samples ie.
+            \begin{center}
+                $
+                M = \{S|_x:\exists h \in \mathcal{H}_B, L_S(h) = 0\}
+                $
+            \end{center}
+            
+            Note that the set of misleading samples is the problem because of such samples, there exists a bad hypothesis which looks good on the sample set.
+            Now, since $\underset{\mathcal{H}}{L_S(h)} = 0$ because of realizability assumption, our algorithm can fail (output gives $\L_{(\mathcal{D},f)}(h_S) > \epsilon$) if we get a misleading sample. Formally $M$ can be written as,
+            \begin{center}
+                $
+                    M = \underset{h\in\mathcal{H}_B}{\bigcup}\{S|x:L_S(h) = 0\}
+                $
+            \end{center}
+        
 \end{document}
