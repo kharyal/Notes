@@ -194,9 +194,74 @@ We have tried to use uppercase letters ($\mathbf{A}$) for matrices, lowercase bo
             \end{center}
             
             You can multiply this matrix to $\mathbf{A}$ and see that this, in fact, performs the operation $R_2 = R_2 - R_1$. Note that this is a \textbf{Lower Triangular matrix}.
+            \begin{definition}
+                \textbf{Lower Triangular matrix: } A square matrix, $\mathbf{A}$ is called Lower Triangular Matrix iff $[\mathbf{A}]_{(i,j)}$ ($(i,j)^{th}$ entry of $\mathbf{A}$) $ = 0$ if $j>i$. 
+            \end{definition}
+            
+            We take this opportunity to define what is Upper Triangular matrix.
+            \begin{definition}
+                \textbf{Upper Triangular matrix: } A square matrix, $\mathbf{A}$ is called Lower Triangular Matrix iff $[\mathbf{A}]_{(i,j)} = 0$ if $i>j$. 
+            \end{definition}
+            
+            \newpage
+            
+            Suppose, now we want to apply an operation $R_3 = R_3 + R_2 + R_1$, the matrix for that operation will be,
+            
+            \begin{center}
+                $
+                    \begin{bmatrix}
+                    1  & 0 & 0 & 0 \\
+                    0  & 1 & 0 & 0 \\
+                    1  & 1 & 1 & 0 \\
+                    0  & 0 & 0 & 1 
+                    \end{bmatrix}
+                $
+            \end{center}
+            
+            And the complete operation ($R_2 = R_2 + R_1$ and $R_3 = R_3 + R_2 + R_1$) becomes,
+            
+            \begin{center}
+                $
+                    \begin{bmatrix}
+                    1  & 0 & 0 & 0 \\
+                    0  & 1 & 0 & 0 \\
+                    1  & 1 & 1 & 0 \\
+                    0  & 0 & 0 & 1 
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                    1  & 0 & 0 & 0 \\
+                    -1 & 1 & 0 & 0 \\
+                    0  & 0 & 1 & 0 \\
+                    0  & 0 & 0 & 1 
+                    \end{bmatrix}
+                    \mathbf{A}
+                    $
+                    
+                    $
+                    =
+                    \begin{bmatrix}
+                    1  & 0 & 0 & 0 \\
+                    -1 & 1 & 0 & 0 \\
+                    0  & 1 & 1 & 0 \\
+                    0  & 0 & 0 & 1 
+                    \end{bmatrix}
+                    \mathbf{A}
+                $
+            \end{center}
+            
+            Note that the product is also Lower Triangular matrix. \textbf{[See problem 1]}
+            
+    \subsection{LU decomposition}
+        
             
 \section{Eigen values and Eigen vectors}
 
 \section{SVD}
+
+\section{Problems}
+
+\begin{problem}
+    Show that product of Upper Triangular matrices is Upper Triangular (same for Lower Triangular matrices).
+\end{problem}
 
 \end{document}
