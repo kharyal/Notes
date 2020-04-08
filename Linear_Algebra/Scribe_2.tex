@@ -1,0 +1,202 @@
+% This is a borrowed LaTeX template file for lecture notes for CS267,
+% Applications of Parallel Computing, UCBerkeley EECS Department.
+
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.
+
+\documentclass[a4paper]{article}
+
+%
+% ADD PACKAGES here:
+%
+
+\usepackage{amsmath,amsfonts,graphicx,multicol}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{bm,nicefrac}
+\usepackage{hyperref}
+
+\setlength{\parskip}{\baselineskip} % Set space between paras
+\setlength{\parindent}{0pt} % No para indentation
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{problem}{Problem}
+
+\begin{document}
+
+\pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \noindent
+   \begin{center}
+   \framebox
+   {
+      \vbox{\vspace{2mm}
+        \hbox to 6.28in { {\Large \hfill Linear algebra \hfill} } %% Fill here
+        \vspace{2mm}
+        \hbox to 6.28in { {\it Chaitanya Kharyal \hfill} } %% Fill here
+        \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{}{} %% Fill here
+
+\section{Notation:}
+We have tried to use uppercase letters ($\mathbf{A}$) for matrices, lowercase bold letters ($\mathbf{x}$) for vectors and lowercase letters ($x$) for scalars (constants and variables). We have tried to stick to this notation as much as possible but there might be some unintentional slips and we apologise for that.
+
+\section{Topics to be covered}
+\begin{itemize}
+    \item $\mathbf{A} = \mathbf{L}\mathbf{U}$
+    \item Eigen values and Eigen vectors
+    \item Singular Value Decomposition (SVD)
+\end{itemize}
+
+\section{$\mathbf{A} = \mathbf{L}\mathbf{U}$}
+    \subsection{representing row operations as matrices}
+        suppose we take the matrix,
+        \begin{center}
+            $
+            \mathbf{A} = 
+            \begin{bmatrix}
+                a & b & c & d \\ 
+                e & f & g & h \\
+                i & j & k & l \\
+                m & n & o & p 
+            \end{bmatrix}
+            $
+        \end{center}
+        
+        And, we want to perform the operation $R_2 = R_2 - R_1$. (Note that while converting a matrix to Row Echelon form, we always perform the operations of type $R_i = R_i + cR_j$, where $i > j$). What will be the matrix for this operation?
+        
+        \subsubsection{Row picture of matrix multiplication}
+            Just like the Column picture of matrix multiplication, you can interpret a matrix multiplication as Row picture. Suppose we have a matrix $\mathbf{A}$ and we multiply a row vector $\mathbf{x'}$ to its left. Formally,
+            
+            \begin{center}
+                $
+                \mathbf{x'}\mathbf{A} = \mathbf{b'}
+                $
+                
+                $
+                \begin{bmatrix}
+                x_1   &
+                x_2   &
+                \dots &
+                x_m 
+                \end{bmatrix}
+                \begin{bmatrix}
+                a_{1,1} & a_{1,2} & \dots & a_{1,n} \\ 
+                a_{2,1} & a_{2,2} & \dots & a_{2,n} \\
+                \vdots  & \vdots  &       & \vdots  \\
+                a_{m,1} & a_{m,2} & \dots & a_{m,n} 
+                \end{bmatrix}
+                 = 
+                \begin{bmatrix}
+                b_1   &
+                b_2   &
+                \dots &
+                b_n
+                \end{bmatrix}
+                $
+                
+                $
+                \begin{bmatrix}
+                x_1   &
+                x_2   &
+                \dots &
+                x_m 
+                \end{bmatrix}
+                \begin{bmatrix}
+                \rule[.5ex]{2.5em}{0.4pt} & \mathbf{r_1} & \rule[.5ex]{2.5em}{0.4pt} \\ 
+                \rule[.5ex]{2.5em}{0.4pt} & \mathbf{r_2} & \rule[.5ex]{2.5em}{0.4pt} \\
+                   & \vdots  &  \\
+                \rule[.5ex]{2.5em}{0.4pt} & \mathbf{r_m} & \rule[.5ex]{2.5em}{0.4pt}
+                \end{bmatrix}
+                 = 
+                \begin{bmatrix}
+                b_1   &
+                b_2   &
+                \dots &
+                b_n
+                \end{bmatrix}
+                $ \dots\dots \texttbf{(1)}
+            \end{center}
+            Where,
+            \begin{center}
+                $
+                    \mathbf{r_i} = 
+                    \begin{bmatrix}
+                    a_{i,1}   &
+                    a_{i,2}   &
+                    \dots     &
+                    a_{i,n} 
+                    \end{bmatrix}
+                $
+            \end{center}
+            
+            Then, equation \textbf{(1)} can be written as,
+            \begin{center}
+                $
+                \displaystyle\sum_{i=1}^{m}x_i\textbf{r}_i = \textbf{b} \dots\dots \textbf{(2)}
+                $
+            \end{center}
+        
+            Verify that \textbf{(2)} is correct.
+            
+            This can easily be extended to multlipication of two matrices (instead of a matrix and a vector). For example,
+            
+            \begin{center}
+                $
+                    \begin{bmatrix}
+                x_1   & x_2   & \dots & x_m \\
+                y_1   & y_2   & \dots & y_m
+                \end{bmatrix}
+                \begin{bmatrix}
+                \rule[.5ex]{2.5em}{0.4pt} & \mathbf{r_1} & \rule[.5ex]{2.5em}{0.4pt} \\ 
+                \rule[.5ex]{2.5em}{0.4pt} & \mathbf{r_2} & \rule[.5ex]{2.5em}{0.4pt} \\
+                   & \vdots  &  \\
+                \rule[.5ex]{2.5em}{0.4pt} & \mathbf{r_m} & \rule[.5ex]{2.5em}{0.4pt}
+                \end{bmatrix}
+                 = 
+                \begin{bmatrix}
+                \displaystyle\sum_{i=1}^{m}x_i\textbf{r}_i \\
+                \displaystyle\sum_{i=1}^{m}y_i\textbf{r}_i
+                \end{bmatrix}
+                $
+            \end{center}
+            
+        \subsubsection{Row operations as matrices}
+            Now that we know how to represent matrix multlipication in the row picture, we can continue our discussion on finding the matrix for operation $R_2 = R_2 - R_1$. Using the row picture, we know the vector that represents $R_2 - R_1$ is,
+            
+            \begin{center}
+                $
+                \begin{bmatrix}
+                    -1 & 1 & 0 & 0 
+                \end{bmatrix}
+                $
+            \end{center}
+            
+            But, we also want to keep all the other rows as they are. Therefore, the matrix becomes,
+            
+            \begin{center}
+                $
+                    \begin{bmatrix}
+                    1  & 0 & 0 & 0 \\
+                    -1 & 1 & 0 & 0 \\
+                    0  & 0 & 1 & 0 \\
+                    0  & 0 & 0 & 1 
+                    \end{bmatrix}
+                $
+            \end{center}
+            
+            You can multiply this matrix to $\mathbf{A}$ and see that this, in fact, performs the operation $R_2 = R_2 - R_1$. Note that this is a \textbf{Lower Triangular matrix}.
+            
+\section{Eigen values and Eigen vectors}
+
+\section{SVD}
+
+\end{document}
