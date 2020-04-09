@@ -252,8 +252,18 @@ We have tried to use uppercase letters ($\mathbf{A}$) for matrices, lowercase bo
             Note that the product is also Lower Triangular matrix. \textbf{[See problem 1]}
             
     \subsection{LU decomposition}
+        While converting a matrix to row echelon form, we multiply the row operation matrices to convert it to a upper triangular matrix. Because all the operations while converting to row echelon form are of the form $R_i = R_i + cR_j \text{with} i<j$, the row operation matrix is always Lower Triangular. If we stack all these matrices to form a single Lower Triangular matrix $T$. The equation, Then, becomes,
         
-            
+        \begin{equation*}
+            \mathbf{TA} = \mathbf{U}
+        \end{equation*}
+        \begin{equation*}
+            \implies \mathbf{A} = \mathbf{T^{-1}U}
+            \implies \mathbf{A} = \mathbf{LU}
+        \end{equation*}
+        Here, $\mathbf{L}$ is also a Lower Triangular matrix. \textbf{[See problem 2]}
+        
+        
 \section{Eigen values and Eigen vectors}
 
 \section{SVD}
@@ -264,4 +274,7 @@ We have tried to use uppercase letters ($\mathbf{A}$) for matrices, lowercase bo
     Show that product of Upper Triangular matrices is Upper Triangular (same for Lower Triangular matrices).
 \end{problem}
 
+\begin{problem}
+    Show that inverse of a Lower Triangular matrix is also Lower Triangular (similar for Upper Triangular matrices).
+\end{problem}
 \end{document}
