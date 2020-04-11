@@ -198,7 +198,7 @@ We have tried to use uppercase letters ($\mathbf{A}$) for matrices, lowercase bo
                 \textbf{Lower Triangular matrix: } A square matrix, $\mathbf{A}$ is called Lower Triangular Matrix iff $[\mathbf{A}]_{(i,j)}$ ($(i,j)^{th}$ entry of $\mathbf{A}$) $ = 0$ if $j>i$. 
             \end{definition}
             
-            We take this opportunity to define what is Upper Triangular matrix.
+            We take this opportunity to define what is an Upper Triangular matrix.
             \begin{definition}
                 \textbf{Upper Triangular matrix: } A square matrix, $\mathbf{A}$ is called Lower Triangular Matrix iff $[\mathbf{A}]_{(i,j)} = 0$ if $i>j$. 
             \end{definition}
@@ -265,7 +265,14 @@ We have tried to use uppercase letters ($\mathbf{A}$) for matrices, lowercase bo
         
         
 \section{Eigen values and Eigen vectors}
-
+    Let $\mathbf{T}$ be a Linear Transformation and $\mathbf{v}$ be a vector such that after applying $\mathbf{T}$ to $\mathbf{v}$, $\mathbf{v}$ remains on its span. Formally,
+    
+    \begin{equation*}
+        \mathbf{Tv} \; = \; \lambda \mathbf{v}
+    \end{equation*}
+    
+    Such vector $\mathbf{v}$ is called \textbf{eigen vector} of $\mathbf{T}$ and the corresponding $\lambda$ is called \textbf{eigen value} corresponding to this eigen vector.
+    
 \section{SVD}
 
 \section{Problems}
