@@ -27,6 +27,7 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{problem}{Problem}
+\newtheorem{statement}{Statement}
 
 \begin{document}
 
@@ -40,7 +41,7 @@
       \vbox{\vspace{2mm}
         \hbox to 6.28in { {\Large \hfill Linear algebra \hfill} } %% Fill here
         \vspace{2mm}
-        \hbox to 6.28in { {\it Chaitanya Kharyal \hfill} } %% Fill here
+        \hbox to 6.28in { {\it Chaitanya Kharyal, Ishita Vohra \hfill} } %% Fill here
         \vspace{2mm}}
    }
    \end{center}
@@ -262,6 +263,58 @@ We have tried to use uppercase letters ($\mathbf{A}$) for matrices, lowercase bo
             \implies \mathbf{A} = \mathbf{LU}
         \end{equation*}
         Here, $\mathbf{L}$ is also a Lower Triangular matrix. \textbf{[See problem 2]}
+    \subsection{Solving Ax = b using LU}
+        First let's see how you can solve $\mathbf{Lx = v}$ where $\mathbf{L}$ is lower triangular matrix. 
+        \begin{center}
+        $
+         \begin{bmatrix}
+                a_{1,1} & 0 & \dots & 0 \\ 
+                a_{2,1} & a_{2,2} & \dots & 0 \\
+                \vdots  & \vdots  &       & \vdots  \\
+                a_{m,1} & a_{m,2} & \dots & a_{m,n} 
+        \end{bmatrix}
+        \begin{bmatrix}
+                x_1 \\
+                x_2 \\
+                \dots \\
+                x_n
+        \end{bmatrix}
+                 = 
+                \begin{bmatrix}
+                b_1   \\
+                b_2   \\
+                \dots \\
+                b_m
+                \end{bmatrix}
+        $
+        \end{center}
+        hence we have 
+        \begin{equation*}
+            x_1 = b_1/a_{1,1} 
+        \end{equation*}
+        \begin{equation*}
+            x_2 = (b_2-a_{2,1}*x_1)/a_{2,2} 
+        \end{equation*}
+         \begin{equation*}
+            x_3 = (b_3-a_{3,1}*x_1-a_{3,2}*x_2)/a_{3,3} 
+        \end{equation*}
+        \begin{equation*}
+            \vdots
+        \end{equation*}
+         \begin{equation*}
+            x_n = (b_3-a_{n,1}*x_1-a_{n,2}*x_2\dots-a_{n,n-1}*x_{n-1})/a_{n,n}
+        \end{equation*}
+        
+    Similarly if we have $\mathbf{Ux = c}$
+    where U is upper triangular matrix we can solve the value of $\mathbf{x}$ in a similar fashion. 
+    
+    Now for solving $\mathbf{Ax = b}$ using LU.
+    \begin{itemize}
+        \item Convert $\mathbf{A}$ into $\mathbf{LU}$
+        \item So now we have $\mathbf{LUx = b}$. Solve $\mathbf{Lv = b}$.
+        \item Now solve $\mathbf{Ux = b}$. Hence we get the value of $\mathbf{x}$. 
+    \end{itemize}
+        
         
         
 \section{Eigen values and Eigen vectors}
@@ -271,9 +324,114 @@ We have tried to use uppercase letters ($\mathbf{A}$) for matrices, lowercase bo
         \mathbf{Tv} \; = \; \lambda \mathbf{v}
     \end{equation*}
     
-    Such vector $\mathbf{v}$ is called \textbf{eigen vector} of $\mathbf{T}$ and the corresponding $\lambda$ is called \textbf{eigen value} corresponding to this eigen vector.
+    Such vector $\mathbf{v}$ is called \textbf{eigen vector} of $\mathbf{T}$ and the corresponding $\lambda$ is called \textbf{eigen value} corresponding to this eigen vector. Eigen vector is defined to be a non-zero vector.
     
-\section{SVD}
+    \subsection{Properties}
+    \begin{statement}
+        $\lambda$ is an eigen value of  $\mathbf{A}$ if and only if $\mathbf{A-(\lambda)I}$ is singular and the eigen vector $\mathbf{v}$ belongs to null space of $\mathbf{A-(\lambda)I}$.
+    \end{statement}
+    
+    \textbf{Explanation:}
+    
+        Suppose, $\lambda$ is an eigen value for $\mathbf{A}$ and the corresponding eigen vector be $\mathbf{v}$. We know that,
+        
+        \begin{equation*}
+            \mathbf{Av} = \lambda\mathbf{v}
+        \end{equation*}
+        \begin{equation*}
+            \implies \mathbf{Av} = \lambda\mathbf{I}\mathbf{v}
+        \end{equation*}
+        
+        Where, $\mathbf{I}$ is an \textbf{Identity matrix}.
+        
+        \begin{equation*}
+            \implies \mathbf{Av}-\lambda\mathbf{I}\mathbf{v} = 0
+        \end{equation*}
+        \begin{equation*}
+            \implies(\mathbf{A} - \lambda\mathbf{I})\mathbf{v} = 0
+        \end{equation*}
+        
+        Therefore, $\mathbf{A}-\lambda\mathbf{I}$ is a singular matrix since $\mathbf{v}$ is not a zero vector. And $\mathbf{v}$ lies in the null space of $\mathbf{A}-\lambda\mathbf{I}$.  
+        
+        Also, for finding the eigen values, we solve the equation $\text{det}(\mathbf{A}-\lambda\mathbf{I}) = 0$. The polynomial $\text{det}(\mathbf{A}-\lambda\mathbf{I}) = 0$ is called the \textbf{characteristic polynomial} of $\mathbf{A}$.
+            
+        \begin{statement}
+            If $\lambda$ is an eigen value of  $\mathbf{A}$ the $\lambda^{2}$ is the eigen value of $\mathbf{A}^{2}$. The eigen vectors remain the same.
+        \end{statement}
+        
+        \textbf{Explanation:}
+        
+        We know that,
+        
+        \begin{equation*}
+            \mathbf{Av} = \lambda\mathbf{v}
+        \end{equation*}
+        We left multiply $\mathbf{A}$ on both sides,
+        \begin{equation*}
+            \implies \mathbf{AAv} = \lambda\mathbf{Av}
+        \end{equation*}
+        \begin{equation*}
+            \implies \mathbf{A^2v} = \lambda(\lambda\mathbf{v})
+        \end{equation*}
+        \begin{equation*}
+            \implies \mathbf{A^2v} = \lambda^2\mathbf{v}
+        \end{equation*}
+    This can be extended to $m^{th}$ power of $\mathbf{A}$
+    
+    \begin{statement}
+        If $\mathbf{A}$ is singular, then $\lambda$ = 0 will be the eigen value of $\mathbf{A}$.
+    \end{statement}
+        
+    \textbf{Explanation:}
+    
+    If $\mathbf{A}$ is a singular matrix, the columns of $\mathbf{A}$ are not linearly independent. This implies that there is some vector $\mathbf{v}$ such that,
+    
+    \begin{equation*}
+        \mathbf{Av} = \mathbf{0}
+    \end{equation*}
+    \begin{equation*}
+        \implies \mathbf{Av} = 0\mathbf{v}
+    \end{equation*}
+    
+    Therefore, $0$ eigen value. Such eigen vector $\mathbf{v}$ will be a vector in the null space of $\mathbf{A}$. The number of times $0$ will occur as Eigen value will be equal to the \textit{Nullity} of $\mathbf{A}$.
+    
+    \begin{statement}
+        Sum of eigen values gives us the trace of Matrix where product of eigen values gives us the determinant.
+    \end{statement}
+    
+    \textbf{Explanation:}
+    
+    \begin{equation}
+    \det(A-\lambda I_n) \\ 
+    =\begin{vmatrix} 
+    a_{1 1}- \lambda & a_{1 2} & \cdots & a_{1,n} \\ 
+    a_{2 1} & a_{2 2} -\lambda & \cdots & a_{2,n} \\ 
+    \vdots & \vdots & \ddots & \vdots \\ 
+    a_{n 1} & a_{m 2} & \cdots & a_{n n}-\lambda 
+    \end{vmatrix} =\prod_{i=1}^n (\lambda_i-\lambda).
+    \end{equation}
+    
+    Note that, the above equation is nothing but the characteristic polynomial for a matrix $\mathbf{A}$.
+    
+    On putting $\lambda = 0$, we can see that $det(\mathbf{A}) = \prod_{i=1}^n{\lambda_i}$. Therefore, determinant of $\mathbf{A}$ is the product of eigen values.
+    
+    Also, compare the co-efficient of $\lambda^{n-1}$ on both sides. On left side, it is $\sum_{i=1}^n{a_{ii}}$, whereas on RHS, it is $\sum_{i=1}^n{\lambda_i}$. For both sides to be equal,
+    
+    \begin{equation*}
+        \sum_{i=1}^n{a_{ii}} = \sum_{i=1}^n{\lambda_i}
+    \end{equation*}
+    \begin{equation*}
+        Trace(\mathbf{A}) = \sum_{i=1}^n{\lambda_i}
+    \end{equation*}
+    
+    \begin{statement}
+        Triangluar matrices have the eigen values on their diagonals.
+    \end{statement}
+    
+      The listed properties are equivalent to a drop in ocean of properties of and around Eigen values and vectors. We have tried to list some important basic properties which are used a lot in Linear Algebra.
+    
+\section{Singular Value Decomposition(SVD)}
+\href{https://brilliant.org/wiki/singular-value-decomposition/}{SVD Wiki}
 
 \section{Problems}
 
